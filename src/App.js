@@ -1,9 +1,13 @@
 import './App.css';
+import GoalsKeeper from './components/GoalsKeeper';
+import Container from '@mui/material/Container';
 
 function App() {
   return (
     <div className="App">
-      <h2>Long Term Goal Keeper</h2>
+      <Container>
+        <GoalsKeeper />
+      </Container>
     </div>
   );
 }
