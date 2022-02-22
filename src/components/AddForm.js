@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
 
 
 function AddForm({ addNewGoal }) {
@@ -24,6 +24,7 @@ function AddForm({ addNewGoal }) {
         
         
         const obj = {
+            id: uuidv4(),
             name: goal,
             description, 
             bet, 

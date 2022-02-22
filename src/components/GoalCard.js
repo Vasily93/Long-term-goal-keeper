@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { styled } from '@mui/material/styles';
@@ -28,19 +28,23 @@ function GoalCard({ goal }) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-
-    setInterval(() => {
-        setMinutes(getMinutesLeft(goal.deadline))
-    }, 60000)
+    if(goal.status === 'ongoing') {
+        setInterval(() => {
+            setMinutes(getMinutesLeft(goal.deadline))
+        }, 60000)
+    }
 
   return (
     <Card>
         <CardContent>
             <Typography variant="h5">{goal.name}</Typography>
-            <Typography>
-                Minutes Left: {minutes}
-            </Typography>
-            {deadlineInDays}
+            {goal.status === 'ongoing' ? 
+                <Typography>
+                    Minutes Left: {minutes}
+                </Typography>
+                : null
+            }
+            Deadline: {deadlineInDays}
         </CardContent>
         <ExpandMore
         expand={expanded}

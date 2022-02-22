@@ -6,6 +6,9 @@ import Toolbar from '@mui/material/Toolbar';
 import { Link } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import AddForm from './AddForm';
+import { getMinutesLeft } from '../helpers/dateHelpers';
+import { sortByDate } from '../helpers/sortArray';
+
 
 // const hardcodedGoals = [
 //     {
@@ -36,12 +39,27 @@ function GoalsKeeper() {
     const [goals, setGoals] = useState(staticGoals);
 
     useEffect(() => {
+        goals.forEach((goal) => setGoalsState(goal))
         window.localStorage.setItem('goals', JSON.stringify(goals))
     }, [goals])
 
     const addNewGoal = (newGoal) => {
-        console.log(newGoal)
-        setGoals([...goals, newGoal])
+            const updatedGoals = sortByDate([...goals, newGoal]);
+            setGoals(updatedGoals)
+    }
+
+    const setGoalsState = (obj) => {
+        const minutes = getMinutesLeft(obj.deadline)
+        switch(minutes > 0) {
+            case true:
+                obj.status = 'ongoing';
+                break;
+            case false:
+                obj.status = 'finished';
+                break;
+            default:
+                obj.status = 'ongoing'
+        }
     }
 
   return (
