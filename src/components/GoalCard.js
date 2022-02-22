@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { styled } from '@mui/material/styles';
@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import moment from 'moment';
+import { getMinutesLeft } from '../helpers/dateHelpers';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -21,15 +22,25 @@ const ExpandMore = styled((props) => {
 
 function GoalCard({ goal }) {
     const [expanded, setExpanded] = useState(false);
+    const [minutes, setMinutes] = useState(getMinutesLeft(goal.deadline));
+    let deadlineInDays = moment(goal.deadline, "YYYYMMDD").fromNow();
+
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-    let deadlineInDays = moment(goal.deadline, "YYYYMMDD").fromNow()
+
+    setInterval(() => {
+        setMinutes(getMinutesLeft(goal.deadline))
+    }, 60000)
+
   return (
     <Card>
         <CardContent>
             <Typography variant="h5">{goal.name}</Typography>
-            Deadline In: {deadlineInDays}
+            <Typography>
+                Minutes Left: {minutes}
+            </Typography>
+            {deadlineInDays}
         </CardContent>
         <ExpandMore
         expand={expanded}
@@ -45,6 +56,7 @@ function GoalCard({ goal }) {
             </Typography>
             <Typography variant="subtitle1">Agreed with: {goal.partner}</Typography>
             <Typography variant="subtitle1">Losing bet: {goal.bet}</Typography>
+            <Typography variant="subtitle2">Status: {goal.status}</Typography>
         </Collapse>
     </Card>
   )

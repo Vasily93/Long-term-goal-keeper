@@ -7,6 +7,8 @@ import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import moment from 'moment';
+
 
 function AddForm({ addNewGoal }) {
     const [goal, setGoal] = useState('');
@@ -17,14 +19,17 @@ function AddForm({ addNewGoal }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-        const editedDate = deadline.split('').filter(i => i !== '-').join('');
+        console.log(deadline)
+        
+        
+        
         const obj = {
             name: goal,
             description, 
             bet, 
             partner,
-            deadline: editedDate
+            deadline,
+            status: null,
         }
 
         setGoal('')

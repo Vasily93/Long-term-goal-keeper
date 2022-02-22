@@ -2,7 +2,9 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import GoalCard from './GoalCard';
 
+
 function Goals(props) {
+ 
     return(
         <Container>
             <Stack direction='column' spacing={2}>
