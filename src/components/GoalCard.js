@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { styled } from '@mui/material/styles';
@@ -6,7 +6,6 @@ import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
-import moment from 'moment';
 import { getMinutesLeft } from '../helpers/dateHelpers';
 
 const ExpandMore = styled((props) => {
@@ -20,10 +19,15 @@ const ExpandMore = styled((props) => {
     }),
   }));
 
-function GoalCard({ goal }) {
+function GoalCard({ goal, changeStateById, index }) {
     const [expanded, setExpanded] = useState(false);
     const [minutes, setMinutes] = useState(getMinutesLeft(goal.deadline));
-    let deadlineInDays = moment(goal.deadline, "YYYYMMDD").fromNow();
+
+    useEffect(() => {
+        if(minutes === 0) {
+            changeStateById(goal.id)
+        }
+    }, [minutes, changeStateById, goal.id])
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -34,17 +38,25 @@ function GoalCard({ goal }) {
         }, 60000)
     }
 
+    let time
+    switch(index === 0) {
+        case true:
+            time = `${Math.floor(minutes / 60)} h : ${Math.floor(minutes % 60)} m `
+            break
+        default:
+            time = `${Math.floor(minutes / 60)} hours`
+    }
+
   return (
     <Card>
         <CardContent>
             <Typography variant="h5">{goal.name}</Typography>
             {goal.status === 'ongoing' ? 
                 <Typography>
-                    Minutes Left: {minutes}
+                    Time Left: {time}
                 </Typography>
                 : null
             }
-            Deadline: {deadlineInDays}
         </CardContent>
         <ExpandMore
         expand={expanded}
@@ -60,7 +72,7 @@ function GoalCard({ goal }) {
             </Typography>
             <Typography variant="subtitle1">Agreed with: {goal.partner}</Typography>
             <Typography variant="subtitle1">Losing bet: {goal.bet}</Typography>
-            <Typography variant="subtitle2">Status: {goal.status}</Typography>
+            <Typography variant="subtitle1">Deadline: {goal.deadline} at 10pm</Typography>
         </Collapse>
     </Card>
   )
