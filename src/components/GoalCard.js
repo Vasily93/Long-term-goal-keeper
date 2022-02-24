@@ -24,7 +24,7 @@ function GoalCard({ goal, changeStateById, index }) {
     const [minutes, setMinutes] = useState(getMinutesLeft(goal.deadline));
 
     useEffect(() => {
-        if(minutes === 0) {
+        if(minutes <= 0) {
             changeStateById(goal.id)
         }
     }, [minutes, changeStateById, goal.id])
