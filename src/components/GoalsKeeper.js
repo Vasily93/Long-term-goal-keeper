@@ -14,7 +14,7 @@ function GoalsKeeper() {
 
     useEffect(() => {
         console.log('useEffect in GoalsKeeper')
-        goals.forEach(goal => setGoalsState(goal))
+        // goals.forEach(goal => setGoalsState(goal))
         window.localStorage.setItem('goals', JSON.stringify(goals))
     }, [goals])
 

@@ -39,14 +39,15 @@ function GoalCard({ goal, changeStateById, index }) {
     }
 
     let time
-    switch(index === 0) {
-        case true:
-            time = `${Math.floor(minutes / 60)} h : ${Math.floor(minutes % 60)} m `
-            break
-        default:
-            time = `${Math.floor(minutes / 60)} hours`
+    if(minutes < 1440) {
+        time = `${Math.floor(minutes / 60)} : ${Math.floor(minutes % 60)}` //less than 1 day
+    } else if(minutes < 10080) {
+        time = `${Math.floor(minutes / 60 / 24)} days` //less than 1 week
+    } else if(minutes < 40320) {
+        time = `${Math.floor(minutes / 60 /24 / 7)} weeks`//les than a month
+    } else {
+        time = `${Math.floor(minutes / 60 / 24 / 7 / 4)} months` // months
     }
-
   return (
     <Card>
         <CardContent>
