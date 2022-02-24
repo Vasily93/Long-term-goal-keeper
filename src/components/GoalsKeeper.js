@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import AddForm from './AddForm';
-import { getMinutesLeft } from '../helpers/dateHelpers';
+// import { getMinutesLeft } from '../helpers/dateHelpers';
 import { sortByDate } from '../helpers/sortArray';
 
 function GoalsKeeper() {
@@ -23,13 +23,13 @@ function GoalsKeeper() {
             setGoals(updatedGoals)
     }
 
-    const setGoalsState = (obj) => {
-        const minutes = getMinutesLeft(obj.deadline)
-        if(minutes <= 0) {
-            obj.status = 'finished'
-        }
-        return obj;
-    }
+    // const setGoalsState = (obj) => {
+    //     const minutes = getMinutesLeft(obj.deadline)
+    //     if(minutes <= 0) {
+    //         obj.status = 'finished'
+    //     }
+    //     return obj;
+    // }
 
     const changeStateById = (id) => {
         const updatedGoals = [...goals];
