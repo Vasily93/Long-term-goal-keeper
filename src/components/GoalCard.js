@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
+import { blue } from '@mui/material/colors';
 import Typography from '@mui/material/Typography';
 import { getMinutesLeft } from '../helpers/dateHelpers';
 
@@ -32,6 +33,7 @@ function GoalCard({ goal, changeStateById, index }) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
     if(goal.status === 'ongoing') {
         setInterval(() => {
             setMinutes(getMinutesLeft(goal.deadline))
@@ -67,13 +69,14 @@ function GoalCard({ goal, changeStateById, index }) {
         >
             <ExpandMoreIcon />
         </ExpandMore>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse in={expanded} timeout="auto" unmountOnExit style={{backgroundColor: blue[800], color: 'white'}}>
             <Typography paragraph>
                 {goal.description}
             </Typography>
             <Typography variant="subtitle1">Agreed with: {goal.partner}</Typography>
             <Typography variant="subtitle1">Losing bet: {goal.bet}</Typography>
             <Typography variant="subtitle1">Deadline: {goal.deadline} at 10pm</Typography>
+            <Typography variant="subtitle1">Total Minutes: {minutes} </Typography>
         </Collapse>
     </Card>
   )
