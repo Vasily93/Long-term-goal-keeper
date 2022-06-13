@@ -74,6 +74,7 @@ function GoalCard({ goal, changeStateById, index }) {
                 {goal.description}
             </Typography>
             <Typography variant="subtitl1">Agreed with: {goal.partner}</Typography>
+            <Typography variant="subtitl1">Contant Email: {goal.email}</Typography>
             <Typography variant="subtitle1">Losing bet: {goal.bet}</Typography>
             <Typography variant="subtitle1">Deadline: {goal.deadline} at 10pm</Typography>
         </Collapse>
