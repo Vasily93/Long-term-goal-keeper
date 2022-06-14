@@ -20,7 +20,7 @@ const ExpandMore = styled((props) => {
     }),
   }));
 
-function GoalCard({ goal, changeStateById, index }) {
+function OngoingCard({ goal, changeStateById, index }) {
     const [expanded, setExpanded] = useState(false);
     const [minutes, setMinutes] = useState(getMinutesLeft(goal.deadline));
 
@@ -70,7 +70,7 @@ function GoalCard({ goal, changeStateById, index }) {
         >
             <ExpandMoreIcon />
         </ExpandMore>
-        <Collapse in={expanded} timeout="auto" unmountOnExit style={{backgroundColor: blue[800], color: 'white'}}>
+        <Collapse in={expanded} timeout="auto" unmountOnExit style={{backgroundColor: blue[400], color: 'white'}}>
             <Typography paragraph>
                 {goal.description}
             </Typography>
@@ -85,4 +85,4 @@ function GoalCard({ goal, changeStateById, index }) {
   )
 }
 
-export default GoalCard
+export default OngoingCard
