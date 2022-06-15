@@ -20,26 +20,20 @@ const ExpandMore = styled((props) => {
     }),
   }));
 
-function OngoingCard({ goal, changeStateById, index }) {
+function OngoingCard({ goal, updateGoalsList, index }) {
     const [expanded, setExpanded] = useState(false);
     const [minutes, setMinutes] = useState(getMinutesLeft(goal.deadline));
-
-    // useEffect(() => {
-    //     if(minutes <= 0) {
-    //         changeStateById(goal.id)
-    //         setExpanded(true)
-    //     }
-    // }, [minutes, changeStateById, goal.id])
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
-    // if(goal.status === 'ongoing') {
-    //     setInterval(() => {
-    //         setMinutes(getMinutesLeft(goal.deadline))
-    //     }, 60000)
-    // }
+        setInterval(() => {
+            setMinutes(getMinutesLeft(goal.deadline))
+            if(minutes <= 0) {
+                updateGoalsList()
+            }
+        }, 60000)
 
     let time
     if(minutes < 1440) {
@@ -74,8 +68,8 @@ function OngoingCard({ goal, changeStateById, index }) {
             <Typography paragraph>
                 {goal.description}
             </Typography>
-            <Typography variant="subtitl1">Agreed with: {goal.partner}</Typography>
-            <Typography variant="subtitl1">Contant Email: {goal.email}</Typography>
+            <Typography variant="subtitle1">Agreed with: {goal.partner}</Typography>
+            <Typography variant="subtitle1">Email: {goal.email}</Typography>
             <Typography variant="subtitle1">Losing bet: {goal.bet}</Typography>
             <Typography variant="subtitle1">Deadline: {goal.deadline} at 10pm</Typography>
             <Typography variant="subtitle1">Status: {goal.status}</Typography>

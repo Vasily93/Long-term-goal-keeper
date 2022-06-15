@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import moment from "moment";
 import { v4 as uuidv4 } from 'uuid';
-import emailjs from '@emailjs/browser';
+import { sendEmail } from '../helpers/emailHelpers';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -57,17 +57,6 @@ function AddForm({ addNewGoal }) {
         setEmail('')
     }
 
-    const sendEmail = (e, obj) => {
-        e.preventDefault()
-        console.log()
-        emailjs.send('service_n66x87a', 'template_s8hb4od', obj, 't_ZimR3kvgZrIp5g3')
-      .then((result) => {
-          console.log(result.text);
-      }, (error) => {
-          console.log(error.text);
-      });
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
         handleExpandClick()
@@ -77,7 +66,7 @@ function AddForm({ addNewGoal }) {
 
         emptyForm()
         addNewGoal(goalObject)
-        sendEmail(e, {goal, description, bet, partner, deadline, email})
+        sendEmail(goalObject)
     }
 
   return (

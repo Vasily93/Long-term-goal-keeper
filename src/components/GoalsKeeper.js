@@ -1,5 +1,4 @@
 import React, {useState, useEffect } from 'react';
-// import Goals from './Goals';
 import PendingCard from './PendingCard';
 import CompletedCard from './CompletedCard';
 import OngoingCard from './OngoingCard';
@@ -25,7 +24,6 @@ function GoalsKeeper() {
 
     useEffect(() => {
         console.log('useEffect in GoalsKeeper')
-        // goals.forEach(goal => setGoalsState(goal))
         window.localStorage.setItem('goals', JSON.stringify(goals))
     }, [goals])
 
@@ -34,17 +32,8 @@ function GoalsKeeper() {
             setGoals(updatedGoals)
     }
 
-    // const setGoalsState = (obj) => {
-    //     const minutes = getMinutesLeft(obj.deadline)
-    //     if(minutes <= 0) {
-    //         obj.status = 'finished'
-    //     }
-    //     return obj;
-    // }
-
-    const changeStateById = (goalObj) => {
+    const updateGoalsList = () => {
         const updatedGoals = [...goals];
-        console.log(updatedGoals.find(goal => goal.id === goalObj.id))
         setGoals(updatedGoals)
     }
 
@@ -76,12 +65,12 @@ function GoalsKeeper() {
       <Container>
         <Stack direction='column' spacing={2}>
           {pendingGoals.map((goal) => (
-              <PendingCard key={goal.id} goal={goal} changeStateById={changeStateById} /> 
+              <PendingCard key={goal.id} goal={goal} updateGoalsList={updateGoalsList} /> 
           ))}
           </Stack >
           <Stack direction='column' spacing={2}>
           {ongoingGoals.map((goal) => (
-              <OngoingCard key={goal.id} goal={goal} changeStateById={changeStateById} /> 
+              <OngoingCard key={goal.id} goal={goal} updateGoalsList={updateGoalsList} /> 
           ))}
         </Stack >
       </Container>
@@ -90,6 +79,8 @@ function GoalsKeeper() {
     {
       currentList === 'completed' &&
       <Container>
+        Finished: {completedGoals.filter(goal => goal.result === 'finished').length} 
+        Missed: {completedGoals.filter(goal => goal.result === 'missed').length} 
         <Stack direction='column' spacing={2}>
         {completedGoals.map((goal) => (
             <CompletedCard key={goal.id} goal={goal} /> 
