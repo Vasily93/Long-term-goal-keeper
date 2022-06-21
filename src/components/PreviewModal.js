@@ -15,10 +15,12 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({goalObject, handleSubmit}) {
+export default function BasicModal({goalObject, handleSubmit, checkForErrors}) {
   let {name, description, bet, partner, email, deadline} = goalObject;
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(checkForErrors().every(val => val===false))
+  };
   const handleClose = () => setOpen(false);
 
   return (
