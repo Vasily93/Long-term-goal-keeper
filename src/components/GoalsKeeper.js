@@ -4,6 +4,7 @@ import CompletedCard from './CompletedCard';
 import OngoingCard from './OngoingCard';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -79,8 +80,10 @@ function GoalsKeeper() {
     {
       currentList === 'completed' &&
       <Container>
-        Finished: {completedGoals.filter(goal => goal.result === 'finished').length} 
-        Missed: {completedGoals.filter(goal => goal.result === 'missed').length} 
+        <Stack direction="row" spacing={2} sx={{margin: '10px', padding: '5px'}}>
+          <Chip label={`Finished: ${completedGoals.filter(goal => goal.result === 'finished').length}`} />
+          <Chip label={`Missed: ${completedGoals.filter(goal => goal.result === 'missed').length} `} variant="outlined" />
+        </Stack>
         <Stack direction='column' spacing={2}>
         {completedGoals.map((goal) => (
             <CompletedCard key={goal.id} goal={goal} /> 
