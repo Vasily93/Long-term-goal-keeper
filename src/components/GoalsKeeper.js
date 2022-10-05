@@ -24,7 +24,6 @@ function GoalsKeeper() {
     const completedGoals = goals.filter(goal => goal.status === 'completed')
 
     useEffect(() => {
-        console.log('useEffect in GoalsKeeper')
         window.localStorage.setItem('goals', JSON.stringify(goals))
     }, [goals])
 
